@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const Fields = () => {
+
+
+  const [user, setUser] = useState();
 
     const handleSubmit=(e)=>{
         e.preventDefault();
@@ -22,8 +25,21 @@ const Fields = () => {
             body: JSON.stringify(addedData)
         })
         .then(res=>res.json())
-        .then(data=>console.log(data));
+        .then((data)=>{
+          console.log(` data after created in the db ${data}`)
+          if(data.insertedId){
+            alert("User created successfully");
+            e.target.reset();
+          }
+        })
     }
+
+
+    fetch('http://localhost:3000/about')
+    .then(res => res.json())
+    .then(data=>{
+      console.log('find data form the database: ');
+    })
 
   return (
     <form onSubmit={handleSubmit}>
